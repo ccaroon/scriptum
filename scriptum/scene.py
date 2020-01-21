@@ -1,3 +1,4 @@
+import sys
 import pyfiglet
 from abc import ABC, abstractmethod
 
@@ -17,15 +18,15 @@ class Scene:
     def add_action(self, action, pause=True):
         self.__events.append(Scene.Action(action, pause))
 
-    def add_dialogue(self, statement, enlarge=False, color=None, pause=True):
+    def add_dialogue(self, statement, enlarge=False, color=None, pause=True, stream=sys.stdout):
         text = statement
         if enlarge:
             text = pyfiglet.figlet_format(statement)
 
         if color:
-            text = Screen.colorize(text, fg=color)
+            text = Screen.colorize_text(text, fg=color)
 
-        self.__events.append(Scene.Dialogue(text, pause))
+        self.__events.append(Scene.Dialogue(text, pause, stream=stream))
 
     def play(self):
         if self.__run_count > 0:
@@ -55,9 +56,10 @@ class Scene:
             self.__action()
 
     class Dialogue(Event):
-        def __init__(self, statement, pause=True):
+        def __init__(self, statement, pause=True, stream=sys.stdout):
             self.__stmt = statement
+            self.__stream = stream
             super().__init__(pause)
 
         def run(self):
-            print(self.__stmt)
+            print(self.__stmt, file=self.__stream)
