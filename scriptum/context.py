@@ -14,27 +14,36 @@ class Context:
 
     @classmethod
     def get(cls):
-        status = ""
+        stati = []
         for ctx in cls.ACTIVE:
-            status += F"{ctx} / "
-        return status
+            stati.append(str(ctx))
 
+        return ' | '.join(stati)
+
+    @classmethod
+    def __set_raw_status(self):
+        raw_stati = []
+        for ctx in self.ACTIVE:
+            raw_stati.append(ctx.status)        
+
+        if raw_stati:
+            set_context('.'.join(raw_stati))
+        else:
+            set_context(None)
+
+    @classmethod
+    def raw_status(self):
+        return get_context()
+    
     @classmethod
     def add(cls, ctx):
         cls.ACTIVE.append(ctx)
-        status = get_context()
-        if status is not None:
-            new_status = F"{status}.{ctx.status}"
-        else:
-            new_status = ctx.status
-        set_context(new_status)
+        cls.__set_raw_status()
 
     @classmethod
     def remove(cls, ctx):
         cls.ACTIVE.remove(ctx)
-        status = get_context()
-        new_status = status.replace(F".{ctx.status}", '')
-        set_context(new_status)
+        cls.__set_raw_status()
 
     @property
     def status(self):

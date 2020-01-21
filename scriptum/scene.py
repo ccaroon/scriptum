@@ -1,7 +1,7 @@
 import pyfiglet
 from abc import ABC, abstractmethod
 
-from screen import Screen
+from scriptum.screen import Screen
 
 class Scene:
 

@@ -1,6 +1,8 @@
 from adventurelib import Bag, Item
 from colorama import Fore, Style
 
+from scriptum.screen import Screen
+
 class Object(Item):
     def __init__(self, name, desc, aliases=[], isa=[], state=None, color=Fore.LIGHTBLACK_EX):
         super().__init__(name, *aliases)
@@ -23,15 +25,15 @@ class Object(Item):
 
         desc = ""
         if self.desc:
-            desc += F"{self.desc} "
+            desc += F"{self.desc}."
     
         if self.state:
-            desc += F"It's {self.state}. "
+            desc += F" It's {self.state}."
 
-        for obj in self.items:
-            desc += F"The {self} has a {obj} on it."
+        for itm in self.items:
+            desc += F" The {self} has a {itm} on it."
 
         return desc
 
     def __str__(self):
-        return F"{self.color}{self.name}{Style.RESET_ALL}"
+        return Screen.colorize_text(self.name, fg=self.color)

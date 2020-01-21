@@ -20,4 +20,4 @@ dist:
 clean:
 	rm -rf cover coverage.xml .coverage
 	rm -rf dist
-	find . -name "__pycache__" -exec rm {} \;
+	find . -name "*.pyc" -exec rm {} \;
