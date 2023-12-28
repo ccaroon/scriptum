@@ -10,3 +10,7 @@ class Screen:
     @classmethod
     def clear(cls, stream=sys.stdout):
         stream.write(F"{chr(27)}[2j\033c\x1bc")
+
+    @classmethod
+    def bold(cls, text):
+        return F"{Style.BRIGHT}{text}{Style.RESET_ALL}"
