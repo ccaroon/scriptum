@@ -8,8 +8,8 @@ setup(
     package_dir={'scriptum': 'scriptum'},
     install_requires=[
         'adventurelib >= 1.2.1',
-        'colorama >= 0.4.3',
-        'pyfiglet >= 0.8.post1',
+        'colorama >= 0.4.6',
+        'pyfiglet >= 1.0.2',
     ],
     # entry_points={
     #     'console_scripts': [
