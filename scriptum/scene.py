@@ -28,9 +28,13 @@ class Scene:
 
         self.__events.append(Scene.Dialogue(text, pause, stream=stream))
 
-    def play(self):
+    def play(self, **kwargs):
         if self.__run_count > 0:
             self.__run_count -= 1
+
+            if kwargs.get("clear_screen", False):
+                Screen.clear()
+
             for i, event in enumerate(self.__events):
                 event.run()
                 # prompt = F"{i+1}/{count}".center(80, "-")
